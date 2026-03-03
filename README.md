@@ -39,6 +39,10 @@ OUTPUT_TEMPLATE="'{{ key }}' has the value '{{ value }}'" \
 'KEY3' has the value '2.34'
 ```
 
+## Output Path
+
+Use environment variable `OUTPUT_PATH` to specify the path to the file to be written.
+
 ## Reading in Github Actions Workflow
 
 A tiny bit of syntactic sugar to read an env file in a Github actions workflow and render in 

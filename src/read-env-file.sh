@@ -15,6 +15,10 @@ do
     output_line="${output_line//{{ key \}\}/$key}"
     output_line="${output_line//{{ value \}\}/$value}"
 
-    echo "$output_line"
+    if [ -z "$OUTPUT_PATH" ]; then
+      echo "$output_line"
+    else
+      echo "$output_line" >> "$OUTPUT_PATH"
+    fi
   fi
 done < "$ENV_FILE_PATH"
