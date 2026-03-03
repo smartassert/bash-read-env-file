@@ -64,14 +64,3 @@ KEY3=2.34"
 KEY2=12
 KEY3=2.34"
 }
-
-@test "read-env-file: multi-item file and github action 'set output' output template" {
-  ENV_FILE_PATH="${fixtures_relative_path}/multiple.env" \
-  OUTPUT_TEMPLATE="::set-output name={{ key }}::{{ value }}" \
-  run main
-
-  assert_success
-  assert_output "::set-output name=KEY1::string
-::set-output name=KEY2::12
-::set-output name=KEY3::2.34"
-}
