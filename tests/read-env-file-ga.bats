@@ -17,17 +17,7 @@ main() {
   bash "${BATS_TEST_DIRNAME}/../src/read-env-file-ga.sh"
 }
 
-@test "read-env-file-ga: github action 'set output' output template is used" {
-  ENV_FILE_PATH="${fixtures_relative_path}/multiple.env" \
-  run main
-
-  assert_success
-  assert_output "::set-output name=KEY1::string
-::set-output name=KEY2::12
-::set-output name=KEY3::2.34"
-}
-
-@test "read-env-file-ga: github action 'set output' output template is used, output to file" {
+@test "read-env-file-ga: output to github actions \$GITHUB_ENV, output path override" {
   assert_file_empty "${TEST_TEMP_DIR}/output"
 
   OUTPUT_PATH="${TEST_TEMP_DIR}/output" \
@@ -36,7 +26,7 @@ main() {
 
   assert_success
   assert_file_not_empty "${TEST_TEMP_DIR}/output"
-  assert_file_contains "${TEST_TEMP_DIR}/output" "::set-output name=KEY1::string"
-  assert_file_contains "${TEST_TEMP_DIR}/output" "::set-output name=KEY2::12"
-  assert_file_contains "${TEST_TEMP_DIR}/output" "::set-output name=KEY3::2.34"
+  assert_file_contains "${TEST_TEMP_DIR}/output" "KEY1=string"
+  assert_file_contains "${TEST_TEMP_DIR}/output" "KEY2=12"
+  assert_file_contains "${TEST_TEMP_DIR}/output" "KEY3=2.34"
 }
